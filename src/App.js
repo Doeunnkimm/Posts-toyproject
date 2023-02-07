@@ -1,4 +1,5 @@
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import GlobalStyles from 'Styles/global';
 import './App.css';
 import Home from './pages/home/Home';
 import {MockPost} from './__mocks__/post';
@@ -11,6 +12,7 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <GlobalStyles />
         <Routes>
           <Route path="/" element={<Home posts={Posts} />} />
         </Routes>
