@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {flexAlignCenter, InnerflexLeft} from 'Styles/common';
 import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai';
 import {BsChatDots} from 'react-icons/bs';
-import * as A from './style';
+import * as A from '../style';
 
 function CardFooter({heart, onClickHeart, onClickCommentOpen}) {
   return (

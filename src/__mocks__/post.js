@@ -1,5 +1,5 @@
-import { faker } from "@faker-js/faker";
-import shortId from "shortid";
+import {faker} from '@faker-js/faker';
+import shortId from 'shortid';
 
 /*
 (1) 데이터 설명
@@ -137,16 +137,16 @@ export const MockPost = (count) =>
               profile_img: faker.image.avatar(),
             },
 
-            myComment: "N",
+            myComment: false,
             createdAt: faker.date.between(
-              "2023-01-01T00:00:00.000Z",
-              "2023-01-31T00:00:00.000Z"
+              '2023-01-01T00:00:00.000Z',
+              '2023-01-31T00:00:00.000Z'
             ),
           };
         }),
       createdAt: faker.date.between(
-        "2023-01-01T00:00:00.000Z",
-        "2023-01-31T00:00:00.000Z"
+        '2023-01-01T00:00:00.000Z',
+        '2023-01-31T00:00:00.000Z'
       ),
-      myPost: "N",
+      myPost: false,
     }));

@@ -1,17 +1,30 @@
 import styled from 'styled-components';
 import {flexAlignCenter, InnerflexLeft} from 'Styles/common';
-import * as A from './style';
+import * as A from '../style';
 import {GoX} from 'react-icons/go';
 
 function CardHeader(props) {
-  const {src, nick_name, createdAt} = props;
+  const {src, nick_name, createdAt, myPost, onToastSuccess, onToastWarning} =
+    props;
+
+  const onClickDelete = () => {
+    if (myPost) {
+      const confirm = window.confirm('정말 글을 삭제 하시겠습니까?');
+      if (confirm) {
+        // 확인
+        onToastSuccess();
+      }
+    } else {
+      onToastWarning();
+    }
+  };
 
   return (
     <S.Top>
       <S.Image src={src} />
       <S.Text size={'17px'}>{nick_name}</S.Text>
       <S.Text size={'15px'}>▫️ {createdAt}</S.Text>
-      <A.Icon style={{marginLeft: 'auto'}}>
+      <A.Icon style={{marginLeft: 'auto'}} onClick={onClickDelete}>
         <GoX size={26} />
       </A.Icon>
     </S.Top>
