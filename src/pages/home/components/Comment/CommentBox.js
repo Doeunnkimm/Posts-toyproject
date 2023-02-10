@@ -1,8 +1,7 @@
-import * as S from './style';
-import {Text, Image} from '../style';
 import Button from 'components/Button/Button';
 import {useRef, useState} from 'react';
 import myProfile from 'myProfile.json';
+import styled from 'styled-components';
 
 function CommentBox({comments}) {
   const [commentList, setCommentList] = useState(comments);
@@ -17,7 +16,6 @@ function CommentBox({comments}) {
       myComment: true,
     };
     setCommentList(commentList.unshift(data));
-
     commentRef.current.value = ''; // clear
   };
 
@@ -31,33 +29,75 @@ function CommentBox({comments}) {
   };
 
   return (
-    <div>
-      <S.FlexAlignDiv>
+    <S.Container>
+      <S.Header>
         <S.Textarea placeholder={'댓글달기..'} ref={commentRef}></S.Textarea>
         <Button height={'30px'} width={'10%'} onClick={onClickSubmit}>
           게시
         </Button>
-      </S.FlexAlignDiv>
+      </S.Header>
       {comments.map((comment) => {
         return (
-          <S.Box>
-            <S.FlexAlignDiv>
-              <Image
-                src={comment.User.profile_img}
-                radius={'50%'}
-                width={'30px'}
-                marginRight={'10px'}
-              />
-              <span>{comment.User.nick_name}</span>
-              <span style={{marginLeft: '10px', color: 'rgb(160, 160, 160)'}}>
-                {toStringByFormatting(comment.createdAt)}
-              </span>
-            </S.FlexAlignDiv>
-            <Text>ㄴ {comment.content}</Text>
-          </S.Box>
+          <S.Form>
+            <S.Image
+              src={comment.User.profile_img}
+              radius={'50%'}
+              width={'30px'}
+              right={'10px'}
+            />
+            <span>{comment.User.nick_name}</span>
+            <span style={{marginLeft: '10px', color: 'rgb(160, 160, 160)'}}>
+              {toStringByFormatting(comment.createdAt)}
+            </span>
+            <S.Text>ㄴ {comment.content}</S.Text>
+          </S.Form>
         );
       })}
-    </div>
+    </S.Container>
   );
 }
 export default CommentBox;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column; ;
+`;
+const Header = styled.div`
+  border-bottom: 1px solid rgb(210, 210, 210);
+  width: 100%;
+  padding: 12px 0;
+`;
+const Textarea = styled.textarea`
+  width: 90%;
+  resize: none;
+  height: 30px;
+  font-size: 16px;
+  border: 1px solid rgb(230, 230, 230);
+  border-radius: 5px;
+  padding: 5px;
+`;
+const Form = styled.div`
+  margin: 10px 0;
+  border: 1px solid rgb(210, 210, 210);
+  border-radius: 10px;
+  padding: 10px;
+`;
+const Text = styled.div`
+  font-size: ${({size}) => size};
+  font-weight: ${({weight}) => weight};
+  margin-right: ${({right}) => right};
+`;
+const Image = styled.img`
+  border-radius: ${({radius}) => radius};
+  width: ${({width}) => width};
+  margin-right: ${({right}) => right};
+`;
+
+const S = {
+  Container,
+  Header,
+  Textarea,
+  Form,
+  Text,
+  Image,
+};

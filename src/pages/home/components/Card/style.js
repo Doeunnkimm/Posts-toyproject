@@ -13,9 +13,18 @@ export const Form = styled.div`
   border-bottom: 1px solid rgb(208, 208, 208);
   padding-bottom: 20px;
 `;
-
 export const Icon = styled.div`
   display: inline-block;
   margin-right: 10px;
   ${HoverCSS};
+`;
+export const Text = styled.div`
+  font-size: ${({size}) => size};
+  font-weight: ${({weight}) => weight};
+  margin-right: ${({right}) => right};
+`;
+export const Image = styled.img`
+  border-radius: ${({radius}) => radius};
+  width: ${({width}) => width};
+  margin-right: ${({right}) => right};
 `;

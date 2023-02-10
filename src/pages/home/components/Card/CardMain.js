@@ -2,7 +2,6 @@ import {useState} from 'react';
 
 import styled from 'styled-components';
 import * as A from './style';
-import {Text, Image} from '../style';
 import {HoverCSS} from 'Styles/common';
 
 import CommentBox from '../Comment/CommentBox';
@@ -47,8 +46,8 @@ function Card({post}) {
         createdAt={toStringByFormatting(createdAt)}
       />
       <A.Form>
-        <Image src={Post_img} width={'100%'}></Image>
-        <Text size={'16px'}>
+        <A.Image src={Post_img} width={'100%'}></A.Image>
+        <A.Text size={'16px'}>
           {allText ? content : outOf100(content)}
           {isOutOf100 && (
             <S.MiniText
@@ -58,7 +57,7 @@ function Card({post}) {
               더보기
             </S.MiniText>
           )}
-        </Text>
+        </A.Text>
         <CardFooter
           heart={heart}
           onClickHeart={onClickHeart}
