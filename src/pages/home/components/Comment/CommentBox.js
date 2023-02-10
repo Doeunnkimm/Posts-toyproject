@@ -2,6 +2,7 @@ import Button from 'components/Button/Button';
 import {useRef, useState} from 'react';
 import myProfile from 'myProfile.json';
 import styled from 'styled-components';
+import {flexAlignCenter} from 'Styles/common';
 
 function CommentBox({comments}) {
   const [commentList, setCommentList] = useState(comments);
@@ -39,16 +40,18 @@ function CommentBox({comments}) {
       {comments.map((comment) => {
         return (
           <S.Form>
-            <S.Image
-              src={comment.User.profile_img}
-              radius={'50%'}
-              width={'30px'}
-              right={'10px'}
-            />
-            <span>{comment.User.nick_name}</span>
-            <span style={{marginLeft: '10px', color: 'rgb(160, 160, 160)'}}>
-              {toStringByFormatting(comment.createdAt)}
-            </span>
+            <S.Text>
+              <S.Image
+                src={comment.User.profile_img}
+                radius={'50%'}
+                width={'30px'}
+                right={'10px'}
+              />
+              <span>{comment.User.nick_name}</span>
+              <span style={{marginLeft: '10px', color: 'rgb(160, 160, 160)'}}>
+                {toStringByFormatting(comment.createdAt)}
+              </span>
+            </S.Text>
             <S.Text>ㄴ {comment.content}</S.Text>
           </S.Form>
         );
@@ -63,6 +66,7 @@ const Container = styled.div`
   flex-direction: column; ;
 `;
 const Header = styled.div`
+  ${flexAlignCenter};
   border-bottom: 1px solid rgb(210, 210, 210);
   width: 100%;
   padding: 12px 0;
@@ -83,6 +87,7 @@ const Form = styled.div`
   padding: 10px;
 `;
 const Text = styled.div`
+  ${flexAlignCenter};
   font-size: ${({size}) => size};
   font-weight: ${({weight}) => weight};
   margin-right: ${({right}) => right};
