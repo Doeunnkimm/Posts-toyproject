@@ -6,7 +6,7 @@ import {flexAlignCenter} from 'Styles/common';
 
 function CommentBox({comments}) {
   const [commentList, setCommentList] = useState(comments);
-  const commentRef = useRef();
+  const commentRef = useRef(null);
 
   const onClickSubmit = () => {
     const data = {
@@ -16,7 +16,9 @@ function CommentBox({comments}) {
       id: 'abcdefg',
       myComment: true,
     };
-    setCommentList(commentList.unshift(data));
+
+    comments.unshift(data);
+    setCommentList([...comments]);
     commentRef.current.value = ''; // clear
   };
 
@@ -37,7 +39,7 @@ function CommentBox({comments}) {
           게시
         </Button>
       </S.Header>
-      {comments.map((comment) => {
+      {commentList.map((comment) => {
         return (
           <S.Form>
             <S.Text>
