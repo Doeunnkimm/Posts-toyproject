@@ -13,7 +13,7 @@ export const InnerflexLeft = css`
   width: 30%;
   text-align: left;
 `;
-export const HoverDiv = css`
+export const HoverCSS = css`
   :hover {
     cursor: pointer;
   }

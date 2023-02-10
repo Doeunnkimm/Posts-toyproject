@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {flexAlignCenter, Hover, HoverDiv, InnerflexLeft} from 'Styles/common';
+import {flexAlignCenter, HoverCSS, InnerflexLeft} from 'Styles/common';
 
 export const Container = styled.div`
   ${flexAlignCenter}
@@ -13,19 +13,9 @@ export const Form = styled.div`
   border-bottom: 1px solid rgb(208, 208, 208);
   padding-bottom: 20px;
 `;
-export const Top = styled.div`
-  ${flexAlignCenter}
-  ${InnerflexLeft}
-`;
-export const IconBox = styled.div`
+
+export const Icon = styled.div`
   display: inline-block;
-  margin-right: ${({marginRight}) => marginRight};
-  :hover {
-    cursor: pointer;
-  }
-`;
-export const MiniText = styled.div`
-  font-size: 15px;
-  color: rgb(150, 150, 150);
-  ${HoverDiv};
+  margin-right: 10px;
+  ${HoverCSS};
 `;
