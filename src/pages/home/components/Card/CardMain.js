@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import * as A from './style';
 import {HoverCSS} from 'Styles/common';
 
-import CommentBox from '../Comment/CommentBox';
+import Comment from '../Comment/Comment';
 import CardHeader from './Header/CardHeader';
 import CardFooter from './Footer/CardFooter';
 
@@ -13,6 +13,8 @@ import {ToastContainer, toast} from 'react-toastify';
 
 function Card({post}) {
   const {User, content, createdAt, Post_img, myPost, Comments} = post;
+
+  const [commentList, setCommentList] = useState(Comments);
 
   const [heart, setHeart] = useState(false);
   const [commentOpen, setCommentOpen] = useState(false);
@@ -53,6 +55,13 @@ function Card({post}) {
     return text;
   };
 
+  // 댓글 남기기 함수
+  const writeComment = (data) => {
+    const temp = [...commentList];
+    temp.unshift(data);
+    setCommentList(temp);
+  };
+
   return (
     <A.Container>
       <ToastContainer />
@@ -82,7 +91,9 @@ function Card({post}) {
           onClickHeart={onClickHeart}
           onClickCommentOpen={onClickCommentOpen}
         />
-        {commentOpen && <CommentBox comments={Comments} />}
+        {commentOpen && (
+          <Comment writeComment={writeComment} comments={commentList} />
+        )}
       </A.Form>
     </A.Container>
   );

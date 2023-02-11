@@ -11,4 +11,5 @@ const Btn = styled.button`
   background-color: ${({background}) => background};
   height: ${({height}) => height};
   width: ${({width}) => width};
+  color: ${({color}) => color};
 `;
