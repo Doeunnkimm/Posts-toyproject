@@ -1,4 +1,4 @@
-import Card from './components/Card/CardMain';
+import Card from './components/Contents/CardMain';
 
 function Home({posts}) {
   return (
