@@ -10,20 +10,20 @@ function ModalBox({isOpen, onClickModalOpenAndClose, myComment}) {
       <Modal isOpen={isOpen} style={customStyles}>
         {myComment && (
           <>
-            <Text>수정</Text>
-            <Border />
-            <Text color={'#ff0000'}>삭제</Text>
-            <Border />
+            <S.Text>수정</S.Text>
+            <S.Border />
+            <S.Text color={'#ff0000'}>삭제</S.Text>
+            <S.Border />
           </>
         )}
         {!myComment && (
           <>
-            <Text color={'#ff0000'}>신고</Text>
-            <Border />
+            <S.Text color={'#ff0000'}>신고</S.Text>
+            <S.Border />
           </>
         )}
 
-        <Text onClick={() => onClickModalOpenAndClose()}>취소</Text>
+        <S.Text onClick={() => onClickModalOpenAndClose()}>취소</S.Text>
       </Modal>
     </>
   );
@@ -60,4 +60,5 @@ const Border = styled.div`
 `;
 const S = {
   Text,
+  Border,
 };
