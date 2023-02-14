@@ -7,7 +7,11 @@ Modal.setAppElement('#root');
 function ModalBox({isOpen, onClickModalOpenAndClose, myComment}) {
   return (
     <>
-      <Modal isOpen={isOpen} style={customStyles}>
+      <Modal
+        isOpen={isOpen}
+        onRequestClose={() => onClickModalOpenAndClose()}
+        style={customStyles}
+      >
         {myComment && (
           <>
             <S.Text>수정</S.Text>

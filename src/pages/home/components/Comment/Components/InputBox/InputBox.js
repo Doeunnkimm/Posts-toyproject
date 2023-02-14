@@ -2,16 +2,22 @@ import Button from 'components/Button/Button';
 import styled from 'styled-components';
 import {flexAlignCenter} from 'Styles/common';
 
-import myProfile from 'myProfile.json';
+import PROFILE from 'myProfile.json';
 
 import {useRef} from 'react';
 
 function InputBox({writeComment}) {
   const commentRef = useRef(null);
 
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      onClickSubmit(); // 엔터눌렀을 때 줄바꿈 되지 않도록 해야함
+    }
+  };
+
   const onClickSubmit = () => {
     const data = {
-      User: myProfile,
+      User: PROFILE,
       content: commentRef.current.value,
       createdAt: new Date(),
       id: 'abcdefg',
@@ -25,7 +31,11 @@ function InputBox({writeComment}) {
   return (
     <S.Container>
       <S.Header>
-        <S.Textarea placeholder={'댓글달기..'} ref={commentRef}></S.Textarea>
+        <S.Textarea
+          placeholder={'댓글달기..'}
+          ref={commentRef}
+          onKeyDown={handleKeyPress}
+        ></S.Textarea>
         <Button height={'30px'} width={'10%'} onClick={onClickSubmit}>
           게시
         </Button>
