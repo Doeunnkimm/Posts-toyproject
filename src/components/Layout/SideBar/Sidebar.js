@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import PROFILE from 'myProfile.json';
 import {useNavigate} from 'react-router-dom';
+import {theme} from 'Styles/theme';
 
 function Sidebar() {
   const navigate = useNavigate();
@@ -60,7 +61,7 @@ const HoverText = styled(Text)`
   padding: 20px;
   :hover {
     cursor: pointer;
-    color: rgb(77, 23, 134);
+    color: ${theme.PALETTE_MAIN};
   }
 `;
 

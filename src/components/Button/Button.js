@@ -12,4 +12,9 @@ const Btn = styled.button`
   height: ${({height}) => height};
   width: ${({width}) => width};
   color: ${({color}) => color};
+  font-size: ${({fontSize}) => fontSize};
+  :hover {
+    background-color: ${({hoverColor}) => hoverColor};
+    cursor: ${({cursor}) => cursor};
+  }
 `;
