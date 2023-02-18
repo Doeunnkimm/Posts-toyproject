@@ -7,6 +7,10 @@ const {createBrowserRouter} = require('react-router-dom');
 
 const Posts = MockPost(5);
 
+const addPost = (newPost) => {
+  Posts.unshift(newPost);
+};
+
 const router = createBrowserRouter([
   {
     path: '/',
@@ -18,7 +22,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'write',
-        element: <WritePage />,
+        element: <WritePage addPost={addPost} />,
       },
     ],
   },

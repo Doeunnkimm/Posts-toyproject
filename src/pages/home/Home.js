@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import Card from './components/Contents/CardMain';
 
 function Home({posts}) {

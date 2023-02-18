@@ -11,9 +11,14 @@ import CardFooter from './Footer/CardFooter';
 import 'react-toastify/dist/ReactToastify.css';
 import {ToastContainer, toast} from 'react-toastify';
 
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+
 function Card({post}) {
   const {User, content, createdAt, Post_img, myPost, Comments} = post;
 
+  console.log(Post_img);
   const [commentList, setCommentList] = useState(Comments);
 
   const [heart, setHeart] = useState(false);
@@ -62,6 +67,16 @@ function Card({post}) {
     setCommentList(temp);
   };
 
+  const settings = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: true,
+    centerMode: false,
+  };
+
   return (
     <A.Container>
       <ToastContainer />
@@ -74,7 +89,16 @@ function Card({post}) {
         onToastWarning={onToastWarning}
       />
       <A.Form>
-        <A.Image src={Post_img} width={'100%'} alt={'post_img'}></A.Image>
+        {Post_img.length > 1 ? (
+          <S.StyledSlider {...settings}>
+            {Post_img.map((image) => {
+              return <A.Image src={`${image}`} />;
+            })}
+          </S.StyledSlider>
+        ) : (
+          <A.Image src={Post_img[0]} width={'100%'} alt={'post_img'} />
+        )}
+
         <A.Text size={'16px'}>
           {allText ? content : outOf100(content)}
           {isOutOf100 && (
@@ -106,6 +130,31 @@ const MiniText = styled.div`
   ${HoverCSS};
 `;
 
+const StyledSlider = styled(Slider)`
+  /* height: 100%; */
+  width: 100%;
+
+  .slick-list {
+    height: 100%;
+    object-fit: cover;
+    display: flex;
+    align-items: center; // 이미지가 정방향이 아닐 경우 가운데 위치
+  }
+  .slick-track {
+    display: flex;
+    align-items: center;
+  }
+  .slick-prev {
+    left: 6px;
+    z-index: 999;
+  }
+  .slick-next {
+    right: 6px;
+    z-index: 999;
+  }
+`;
+
 const S = {
   MiniText,
+  StyledSlider,
 };

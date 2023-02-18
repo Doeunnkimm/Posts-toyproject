@@ -11,8 +11,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import SlideImage from './Components/SlideImage';
 
-function WritePage() {
+import PROFILE from 'myProfile.json';
+import {useNavigate} from 'react-router-dom';
+
+function WritePage({addPost}) {
   const imageRef = useRef();
+  const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [text, setText] = useState('');
   const [isSubmitOk, setIsSubmitOk] = useState(false);
@@ -45,6 +49,36 @@ function WritePage() {
 
   const removeUploadedImage = (index) => {
     setImages(images.filter((image) => images.indexOf(image) !== index));
+  };
+
+  const generateRandomString = (num) => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    let result = '';
+    const charactersLength = characters.length;
+    for (let i = 0; i < num; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return result;
+  };
+
+  const onClickSubmitNewPost = () => {
+    const newPost = {
+      Comments: [],
+      Post_img: [...images],
+      User: {
+        id: PROFILE.id,
+        nick_name: PROFILE.nick_name,
+        profile_img: PROFILE.profile_img,
+      },
+      content: text,
+      createdAt: new Date(),
+      id: generateRandomString(11),
+      myPost: true,
+    };
+
+    addPost(newPost);
+    navigate('/');
   };
 
   const settings = {
@@ -100,6 +134,7 @@ function WritePage() {
         </S.Text>
         <S.Text>
           <Button
+            onClick={onClickSubmitNewPost}
             background={
               isSubmitOk ? 'rgb(209, 209, 209)' : 'rgb(140, 140, 140)'
             }
