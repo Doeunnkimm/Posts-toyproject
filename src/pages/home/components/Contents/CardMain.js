@@ -5,7 +5,7 @@ import * as A from './style';
 import { HoverCSS } from 'Styles/common';
 
 import Comment from '../Comment/Comment';
-import CardHeader from './Header/CardHeader';
+import CardHeader from './Components/Header/CardHeader';
 import CardFooter from './Components/Footer/CardFooter';
 
 import 'react-toastify/dist/ReactToastify.css';

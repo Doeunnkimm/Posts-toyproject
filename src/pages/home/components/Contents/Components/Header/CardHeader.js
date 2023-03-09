@@ -1,9 +1,7 @@
 import styled from 'styled-components';
 import { flexAlignCenter, InnerflexLeft } from 'Styles/common';
-import * as A from '../style';
+import * as A from '../../style';
 import { GoX } from 'react-icons/go';
-import { useDispatch } from 'react-redux';
-import { DELETE_POST } from 'Stores/post';
 
 function CardHeader(props) {
   const { id, src, nick_name, createdAt, myPost, onDeletePost } = props;
