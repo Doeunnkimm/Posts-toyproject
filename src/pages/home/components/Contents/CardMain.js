@@ -1,22 +1,22 @@
-import {useState} from 'react';
+import { useState } from 'react';
 
 import styled from 'styled-components';
 import * as A from './style';
-import {HoverCSS} from 'Styles/common';
+import { HoverCSS } from 'Styles/common';
 
 import Comment from '../Comment/Comment';
 import CardHeader from './Header/CardHeader';
 import CardFooter from './Footer/CardFooter';
 
 import 'react-toastify/dist/ReactToastify.css';
-import {ToastContainer, toast} from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function Card({post}) {
-  const {User, content, createdAt, Post_img, myPost, Comments} = post;
+function Card({ post }) {
+  const { id, User, content, createdAt, Post_img, myPost, Comments } = post;
 
   console.log(Post_img);
   const [commentList, setCommentList] = useState(Comments);
@@ -44,11 +44,11 @@ function Card({post}) {
 
   // 성공적으로 댓글 삭제 되었을 때 토스트
   const onToastSuccess = () =>
-    toast.success('글 삭제 완료!', {autoClose: 1500});
+    toast.success('글 삭제 완료!', { autoClose: 1500 });
 
   // 남이 쓴 글을 삭제하려 했을 떄 토스트
   const onToastWarning = () =>
-    toast.warning('내가 쓴 글만 삭제가 가능해요', {autoClose: 1500});
+    toast.warning('내가 쓴 글만 삭제가 가능해요', { autoClose: 1500 });
 
   // 게시물 삭제 함수
 
@@ -81,6 +81,7 @@ function Card({post}) {
     <A.Container>
       <ToastContainer />
       <CardHeader
+        id={id}
         src={User.profile_img}
         nick_name={User.nick_name}
         createdAt={toStringByFormatting(createdAt)}
@@ -103,7 +104,7 @@ function Card({post}) {
           {allText ? content : outOf100(content)}
           {isOutOf100 && (
             <S.MiniText
-              style={{display: 'inline-block'}}
+              style={{ display: 'inline-block' }}
               onClick={onClickOther}
             >
               더보기

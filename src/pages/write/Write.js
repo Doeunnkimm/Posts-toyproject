@@ -1,10 +1,9 @@
-import {useRef, useState} from 'react';
+import { useRef, useState } from 'react';
 import styled from 'styled-components';
-import {flexAlignCenter, flexCenter} from 'Styles/common';
-import {BsCamera} from 'react-icons/bs';
-import {BiTrash} from 'react-icons/bi';
+import { flexAlignCenter, flexCenter } from 'Styles/common';
+import { BsCamera } from 'react-icons/bs';
 import Button from 'components/Button/Button';
-import {theme} from 'Styles/theme';
+import { theme } from 'Styles/theme';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -12,15 +11,19 @@ import 'slick-carousel/slick/slick-theme.css';
 import SlideImage from './Components/SlideImage';
 
 import PROFILE from 'myProfile.json';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-function WritePage({addPost}) {
+import { useDispatch } from 'react-redux';
+import { ADD_POST } from 'Stores/post';
+
+function WritePage() {
+  const dispatch = useDispatch();
+
   const imageRef = useRef();
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [text, setText] = useState('');
   const [isSubmitOk, setIsSubmitOk] = useState(false);
-  const [view, setView] = useState(false);
 
   const onChangeUploadImages = (e) => {
     const image = imageRef.current.files[0];
@@ -77,7 +80,7 @@ function WritePage({addPost}) {
       myPost: true,
     };
 
-    addPost(newPost);
+    dispatch(ADD_POST(newPost));
     navigate('/');
   };
 
@@ -119,7 +122,7 @@ function WritePage({addPost}) {
         </S.CameraBox>
         <S.Text>
           <input
-            style={{display: 'none'}}
+            style={{ display: 'none' }}
             type="file"
             multiple
             ref={imageRef}
@@ -142,7 +145,7 @@ function WritePage({addPost}) {
             width={'80%'}
             height={'30px'}
             fontSize={'20px'}
-            style={{margin: '20px auto'}}
+            style={{ margin: '20px auto' }}
             hoverColor={
               isSubmitOk ? `${theme.PALETTE_MAIN}` : 'rgb(140, 140, 140)'
             }

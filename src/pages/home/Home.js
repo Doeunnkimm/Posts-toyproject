@@ -3,9 +3,15 @@ import Card from './components/Contents/CardMain';
 
 import { useInView } from 'react-intersection-observer';
 import FakeApi from 'Apis/fakeApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { DELETE_POST, GET_POSTS } from 'Stores/post';
 
 function Home() {
-  const [posts, setPosts] = useState([]);
+  const posts = useSelector((store) => store.post);
+  const dispatch = useDispatch();
+
+  console.log(posts);
+
   const [hasNextPage, setHasNextPage] = useState(true);
   const page = useRef(1);
   const [ref, inView] = useInView();
@@ -14,7 +20,7 @@ function Home() {
   const getPosts = useCallback(async () => {
     try {
       const res = await FakeApi.getPosts();
-      setPosts((prevPosts) => [...prevPosts, ...res]);
+      dispatch(GET_POSTS({ res }));
       setHasNextPage(res.length === 10);
       if (res.length) {
         page.current += 1;
