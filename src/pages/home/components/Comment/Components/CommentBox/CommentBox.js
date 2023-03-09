@@ -1,17 +1,27 @@
 import styled from 'styled-components';
 import ModalBox from '../Modal/Modal';
 
-import {BiDotsHorizontalRounded} from 'react-icons/bi';
-import {flexAlignCenter, HoverCSS} from 'Styles/common';
-import {useState} from 'react';
+import { BiDotsHorizontalRounded } from 'react-icons/bi';
+import { flexAlignCenter, HoverCSS } from 'Styles/common';
+import { useState } from 'react';
 
-function CommentBox(props) {
-  const {profile_img, nick_name, createdAt, content, myComment} = props;
+function CommentBox({ comment, onReportComment, onDeleteComment }) {
+  const { id, User, createdAt, content, myComment } = comment;
 
   const [dotsIsVisible, setDotsIsVisible] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const onClickModalOpenAndClose = () => setModalIsOpen((prev) => !prev);
+
+  const onClickReportComment = (id) => {
+    setModalIsOpen(false);
+    onReportComment(id);
+  };
+
+  const onClickDeleteComment = (id) => {
+    setModalIsOpen(false);
+    onDeleteComment(id);
+  };
 
   const toStringByFormatting = (EncodingTime, delimiter = '-') => {
     const year = EncodingTime.getFullYear();
@@ -29,18 +39,18 @@ function CommentBox(props) {
     >
       <S.Text>
         <S.Image
-          src={profile_img}
+          src={User.profile_img}
           radius={'50%'}
           width={'30px'}
           right={'10px'}
         />
-        <span>{nick_name}</span>
-        <span style={{marginLeft: '10px', color: 'rgb(160, 160, 160)'}}>
+        <span>{User.nick_name}</span>
+        <span style={{ marginLeft: '10px', color: 'rgb(160, 160, 160)' }}>
           {toStringByFormatting(createdAt)}
         </span>
         {dotsIsVisible && (
           <S.Icon
-            style={{marginLeft: 'auto'}}
+            style={{ marginLeft: 'auto' }}
             onClick={onClickModalOpenAndClose}
           >
             <BiDotsHorizontalRounded size={16} />
@@ -48,6 +58,10 @@ function CommentBox(props) {
         )}
 
         <ModalBox
+          id={id}
+          onReportComment={onClickReportComment}
+          onDeleteComment={onClickDeleteComment}
+          setModalIsOpen={setModalIsOpen}
           isOpen={modalIsOpen}
           onClickModalOpenAndClose={onClickModalOpenAndClose}
           myComment={myComment}
@@ -72,16 +86,16 @@ const Icon = styled.div`
 `;
 
 const Image = styled.img`
-  border-radius: ${({radius}) => radius};
-  width: ${({width}) => width};
-  margin-right: ${({right}) => right};
+  border-radius: ${({ radius }) => radius};
+  width: ${({ width }) => width};
+  margin-right: ${({ right }) => right};
 `;
 
 const Text = styled.div`
   ${flexAlignCenter};
-  font-size: ${({size}) => size};
-  font-weight: ${({weight}) => weight};
-  margin-right: ${({right}) => right};
+  font-size: ${({ size }) => size};
+  font-weight: ${({ weight }) => weight};
+  margin-right: ${({ right }) => right};
 `;
 
 const S = {

@@ -6,7 +6,7 @@ import { HoverCSS } from 'Styles/common';
 
 import Comment from '../Comment/Comment';
 import CardHeader from './Header/CardHeader';
-import CardFooter from './Footer/CardFooter';
+import CardFooter from './Components/Footer/CardFooter';
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,7 +15,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
-function Card({ post }) {
+function Card({ post, onDeletePost }) {
   const { id, User, content, createdAt, Post_img, myPost, Comments } = post;
 
   console.log(Post_img);
@@ -41,16 +41,6 @@ function Card({ post }) {
   const onClickHeart = () => setHeart((prev) => !prev); // 하트 아이콘 클릭 이벤트
 
   const onClickCommentOpen = () => setCommentOpen((prev) => !prev); // 댓글 아이콘 클릭 이벤트
-
-  // 성공적으로 댓글 삭제 되었을 때 토스트
-  const onToastSuccess = () =>
-    toast.success('글 삭제 완료!', { autoClose: 1500 });
-
-  // 남이 쓴 글을 삭제하려 했을 떄 토스트
-  const onToastWarning = () =>
-    toast.warning('내가 쓴 글만 삭제가 가능해요', { autoClose: 1500 });
-
-  // 게시물 삭제 함수
 
   const outOf100 = (text) => {
     if (text.length >= 100) {
@@ -86,8 +76,7 @@ function Card({ post }) {
         nick_name={User.nick_name}
         createdAt={toStringByFormatting(createdAt)}
         myPost={myPost}
-        onToastSuccess={onToastSuccess}
-        onToastWarning={onToastWarning}
+        onDeletePost={onDeletePost}
       />
       <A.Form>
         {Post_img.length > 1 ? (
@@ -117,7 +106,11 @@ function Card({ post }) {
           onClickCommentOpen={onClickCommentOpen}
         />
         {commentOpen && (
-          <Comment writeComment={writeComment} comments={commentList} />
+          <Comment
+            writeComment={writeComment}
+            comments={commentList}
+            setComments={setCommentList}
+          />
         )}
       </A.Form>
     </A.Container>

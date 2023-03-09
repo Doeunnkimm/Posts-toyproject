@@ -6,37 +6,17 @@ import { useDispatch } from 'react-redux';
 import { DELETE_POST } from 'Stores/post';
 
 function CardHeader(props) {
-  const dispatch = useDispatch();
-
-  const {
-    id,
-    src,
-    nick_name,
-    createdAt,
-    myPost,
-    onToastSuccess,
-    onToastWarning,
-  } = props;
-
-  const onClickDelete = () => {
-    if (myPost) {
-      const confirm = window.confirm('정말 글을 삭제 하시겠습니까?');
-      if (confirm) {
-        // 확인
-        dispatch(DELETE_POST({ id }));
-        onToastSuccess();
-      }
-    } else {
-      onToastWarning();
-    }
-  };
+  const { id, src, nick_name, createdAt, myPost, onDeletePost } = props;
 
   return (
     <S.Top>
       <S.Image src={src} />
       <S.Text size={'17px'}>{nick_name}</S.Text>
       <S.Text size={'15px'}>▫️ {createdAt}</S.Text>
-      <A.Icon style={{ marginLeft: 'auto' }} onClick={onClickDelete}>
+      <A.Icon
+        style={{ marginLeft: 'auto' }}
+        onClick={() => onDeletePost(id, myPost)}
+      >
         <GoX size={26} />
       </A.Icon>
     </S.Top>

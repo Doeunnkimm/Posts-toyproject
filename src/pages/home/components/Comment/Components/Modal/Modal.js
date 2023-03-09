@@ -1,10 +1,17 @@
 import Modal from 'react-modal';
 import styled from 'styled-components';
-import {HoverCSS} from 'Styles/common';
+import { HoverCSS } from 'Styles/common';
 
 Modal.setAppElement('#root');
 
-function ModalBox({isOpen, onClickModalOpenAndClose, myComment}) {
+function ModalBox({
+  id,
+  onReportComment,
+  onDeleteComment,
+  isOpen,
+  onClickModalOpenAndClose,
+  myComment,
+}) {
   return (
     <>
       <Modal
@@ -16,13 +23,17 @@ function ModalBox({isOpen, onClickModalOpenAndClose, myComment}) {
           <>
             <S.Text>수정</S.Text>
             <S.Border />
-            <S.Text color={'#ff0000'}>삭제</S.Text>
+            <S.Text color={'#ff0000'} onClick={() => onDeleteComment(id)}>
+              삭제
+            </S.Text>
             <S.Border />
           </>
         )}
         {!myComment && (
           <>
-            <S.Text color={'#ff0000'}>신고</S.Text>
+            <S.Text color={'#ff0000'} onClick={() => onReportComment(id)}>
+              신고
+            </S.Text>
             <S.Border />
           </>
         )}
@@ -49,7 +60,7 @@ const Text = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({color}) => color};
+  color: ${({ color }) => color};
   font-weight: bold;
   width: 300px;
   font-size: 15px;
