@@ -1,12 +1,12 @@
 import Button from 'components/Button/Button';
 import styled from 'styled-components';
-import {flexAlignCenter} from 'Styles/common';
+import { flexAlignCenter } from 'Styles/common';
 
 import PROFILE from 'myProfile.json';
 
-import {useRef} from 'react';
+import { useRef } from 'react';
 
-function InputBox({writeComment}) {
+function InputBox({ onAddComment }) {
   const commentRef = useRef(null);
 
   const handleKeyPress = (e) => {
@@ -20,11 +20,10 @@ function InputBox({writeComment}) {
       User: PROFILE,
       content: commentRef.current.value,
       createdAt: new Date(),
-      id: 'abcdefg',
+      id: Math.floor(Math.random() * 100000),
       myComment: true,
     };
-
-    writeComment(data);
+    onAddComment(data);
     commentRef.current.value = ''; // clear
   };
 
@@ -67,9 +66,9 @@ const Textarea = styled.textarea`
 
 const Text = styled.div`
   ${flexAlignCenter};
-  font-size: ${({size}) => size};
-  font-weight: ${({weight}) => weight};
-  margin-right: ${({right}) => right};
+  font-size: ${({ size }) => size};
+  font-weight: ${({ weight }) => weight};
+  margin-right: ${({ right }) => right};
 `;
 
 const S = {

@@ -8,6 +8,8 @@ function ModalBox({
   id,
   onReportComment,
   onDeleteComment,
+  setIsEditComment,
+  onClickEditComment,
   isOpen,
   onClickModalOpenAndClose,
   myComment,
@@ -21,7 +23,7 @@ function ModalBox({
       >
         {myComment && (
           <>
-            <S.Text>수정</S.Text>
+            <S.Text onClick={() => onClickEditComment()}>수정</S.Text>
             <S.Border />
             <S.Text color={'#ff0000'} onClick={() => onDeleteComment(id)}>
               삭제

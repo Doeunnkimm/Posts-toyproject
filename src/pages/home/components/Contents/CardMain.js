@@ -9,7 +9,7 @@ import CardHeader from './Components/Header/CardHeader';
 import CardFooter from './Components/Footer/CardFooter';
 
 import 'react-toastify/dist/ReactToastify.css';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
@@ -19,7 +19,6 @@ function Card({ post, onDeletePost }) {
   const { id, User, content, createdAt, Post_img, myPost, Comments } = post;
 
   console.log(Post_img);
-  const [commentList, setCommentList] = useState(Comments);
 
   const [heart, setHeart] = useState(false);
   const [commentOpen, setCommentOpen] = useState(false);
@@ -48,13 +47,6 @@ function Card({ post, onDeletePost }) {
       return text.split('').slice(0, 99).join('') + '...';
     }
     return text;
-  };
-
-  // 댓글 남기기 함수
-  const writeComment = (data) => {
-    const temp = [...commentList];
-    temp.unshift(data);
-    setCommentList(temp);
   };
 
   const settings = {
@@ -105,13 +97,7 @@ function Card({ post, onDeletePost }) {
           onClickHeart={onClickHeart}
           onClickCommentOpen={onClickCommentOpen}
         />
-        {commentOpen && (
-          <Comment
-            writeComment={writeComment}
-            comments={commentList}
-            setComments={setCommentList}
-          />
-        )}
+        {commentOpen && <Comment postId={id} comments={Comments} />}
       </A.Form>
     </A.Container>
   );

@@ -4,23 +4,42 @@ import ModalBox from '../Modal/Modal';
 import { BiDotsHorizontalRounded } from 'react-icons/bi';
 import { flexAlignCenter, HoverCSS } from 'Styles/common';
 import { useState } from 'react';
+import Button from 'components/Button/Button';
 
-function CommentBox({ comment, onReportComment, onDeleteComment }) {
-  const { id, User, createdAt, content, myComment } = comment;
-
+function CommentBox({
+  comment,
+  onReportComment,
+  onDeleteComment,
+  onAddComment,
+  onEditComment,
+}) {
   const [dotsIsVisible, setDotsIsVisible] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  const [isEditComment, setIsEditComment] = useState(false);
+  const [editComment, setEditComment] = useState('');
+
   const onClickModalOpenAndClose = () => setModalIsOpen((prev) => !prev);
 
-  const onClickReportComment = (id) => {
+  const onClickReportComment = () => {
     setModalIsOpen(false);
-    onReportComment(id);
+    onReportComment(comment.id);
   };
 
   const onClickDeleteComment = (id) => {
     setModalIsOpen(false);
-    onDeleteComment(id);
+    onDeleteComment(comment.id);
+  };
+
+  const onClickEditComment = () => {
+    setModalIsOpen(false);
+    setIsEditComment(true);
+    setEditComment(comment.content);
+  };
+
+  const onSubmitEditComment = () => {
+    setIsEditComment(false);
+    onEditComment(comment.id, editComment);
   };
 
   const toStringByFormatting = (EncodingTime, delimiter = '-') => {
@@ -39,14 +58,14 @@ function CommentBox({ comment, onReportComment, onDeleteComment }) {
     >
       <S.Text>
         <S.Image
-          src={User.profile_img}
+          src={comment.User.profile_img}
           radius={'50%'}
           width={'30px'}
           right={'10px'}
         />
-        <span>{User.nick_name}</span>
+        <span>{comment.User.nick_name}</span>
         <span style={{ marginLeft: '10px', color: 'rgb(160, 160, 160)' }}>
-          {toStringByFormatting(createdAt)}
+          {toStringByFormatting(comment.createdAt)}
         </span>
         {dotsIsVisible && (
           <S.Icon
@@ -58,16 +77,28 @@ function CommentBox({ comment, onReportComment, onDeleteComment }) {
         )}
 
         <ModalBox
-          id={id}
+          id={comment.id}
           onReportComment={onClickReportComment}
           onDeleteComment={onClickDeleteComment}
+          onClickEditComment={onClickEditComment}
+          SetIsEditComment={setIsEditComment}
           setModalIsOpen={setModalIsOpen}
           isOpen={modalIsOpen}
           onClickModalOpenAndClose={onClickModalOpenAndClose}
-          myComment={myComment}
+          myComment={comment.myComment}
         />
       </S.Text>
-      <S.Text>ㄴ {content}</S.Text>
+      {isEditComment ? (
+        <S.Text>
+          <S.TextArea
+            value={editComment}
+            onChange={(e) => setEditComment(e.target.value)}
+          />
+          <Button onClick={onSubmitEditComment}>완료</Button>
+        </S.Text>
+      ) : (
+        <S.Text>ㄴ {comment.content}</S.Text>
+      )}
     </S.Form>
   );
 }
@@ -98,9 +129,14 @@ const Text = styled.div`
   margin-right: ${({ right }) => right};
 `;
 
+const TextArea = styled.textarea`
+  width: 100%;
+  resize: none;
+`;
 const S = {
   Form,
   Icon,
   Image,
   Text,
+  TextArea,
 };
